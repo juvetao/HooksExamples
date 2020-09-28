@@ -1,38 +1,46 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+//2 - useState
+// Skapa en ny branch, i vilken du skriver en komponent (funktion och hooks) som
+// renderar ett förnamn (lagra det i firstname). Rendera också ett inputfält och en
+// knapp, och när knappen trycks ska värdet i inputfältet ersätta det som finns i
+// variabeln firstname. Jobba med forms, onSubmit och glöm inte .preventDefault().
+// Utveckling: Du kan också prova att ändra värdet direkt vid minsta förändring i
+// inputfältet.
 
-// Skapa en komponent (function och hooks) som har en variabel numbers, samt en som
-// heter total. I numbers hårdkodar du två ental, och total sätter du till 0.
-// Komponenten renderar de båda siffrorna i numbers, samt en knapp. När man trycker
-// på knappen ska produkten (multiplikation) av de två talen lagras i total, samt
-// renderas på sidan.
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
 
-function CounterHooks(){
-  const numbers = [5 , 2];
+function Firstname(props) {
+    const [firstname, setFirstname] = useState(props.firstname);
 
-  //Hooks - useState
-  const [total, setTotal] = useState(0);
+    const nameSubmitted = (e) => {
+        e.preventDefault();
+        setFirstname(e.target.firstname.value);
+    };
 
-  //function - call hooks
-  function calculate(){
-    setTotal(numbers[0] * numbers[1])
-  }
+    const nameChanger = (e) => {
+        if (e.target.value.length > 3) {
+            firstname = e.target.value;
+            setFirstname(e.target.value);
+        }
+    };
 
-  
-  return (
-    <div className="hooks">
-      <p>Counnter Value: {numbers[0]} And {numbers[1]}</p>
-      <p>{total}</p>
-      <button onClick={() => calculate()}>
-        Multiplication
-      </button>
-    </div>
-  )
+    return (
+        <div>
+            <p>{firstname}</p>
+            <form onSubmit={nameSubmitted}>
+                <input
+                    type="text"
+                    name="firstname"
+                    onChange={(e) => nameChanger(e)}
+                />
+                <input type="submit" value="Ändra namn" />
+            </form>
+        </div>
+    );
 }
 
 ReactDOM.render(
-  <CounterHooks />,
-  document.getElementById('root')
+    <Firstname firstname="Rune" />,
+    document.getElementById("root")
 );
-
