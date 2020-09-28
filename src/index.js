@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+// Skapa en komponent (function och hooks) som har en variabel numbers, samt en som
+// heter total. I numbers hårdkodar du två ental, och total sätter du till 0.
+// Komponenten renderar de båda siffrorna i numbers, samt en knapp. När man trycker
+// på knappen ska produkten (multiplikation) av de två talen lagras i total, samt
+// renderas på sidan.
+
+function CounterHooks(){
+  const numbers = [5 , 2];
+
+  //Hooks - useState
+  const [total, setTotal] = useState(0);
+
+  //function - call hooks
+  function calculate(){
+    setTotal(numbers[0] * numbers[1])
+  }
+
+  
+  return (
+    <div className="hooks">
+      <p>Counnter Value: {numbers[0]} And {numbers[1]}</p>
+      <p>{total}</p>
+      <button onClick={() => calculate()}>
+        Multiplication
+      </button>
+    </div>
+  )
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <CounterHooks />,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
